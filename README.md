@@ -1,6 +1,6 @@
 # YAP Landing Page
 
-![YAP Logo](src/assets/images/YAP.png)
+<img src="src/assets/images/YAP.png" alt="YAP Logo" width="100"/>
 
 ## Overview
 
