@@ -1,0 +1,33 @@
+<section class="py-16 md:py-24">
+  <div class="container mx-auto px-4">
+    <div class="mb-12 text-center">
+      <h2 class="text-4xl font-bold text-neutral-100">Roadmap</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-xl text-neutral-400">
+        Our journey to revolutionize language pronunciation learning
+      </p>
+    </div>
+
+    <div class="relative mx-auto max-w-4xl">
+      <!-- Timeline Line -->
+      <div class="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-yellow-500/30"></div>
+
+      <!-- Timeline Events -->
+      <div *ngFor="let event of timelineEvents; let i = index" class="relative mb-16">
+        <!-- Timeline Dot -->
+        <div class="absolute left-1/2 top-0 flex h-8 w-8 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-yellow-500 text-black">
+          <span class="text-sm">{{ i + 1 }}</span>
+        </div>
+
+        <!-- Event Content -->
+        <div [ngClass]="i % 2 === 0 ? 'ml-auto pl-8 text-left' : 'mr-auto pr-8 text-right'" 
+             class="relative w-[calc(50%-2rem)] rounded-lg bg-neutral-800/50 p-6 backdrop-blur-sm transition-all hover:bg-neutral-700/50">
+          <span class="mb-2 inline-block rounded-full bg-yellow-500/20 px-3 py-1 text-sm font-semibold text-yellow-300">
+            {{ event.date }}
+          </span>
+          <h3 class="mb-2 text-xl font-bold text-neutral-100">{{ event.title }}</h3>
+          <p class="text-neutral-400">{{ event.description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

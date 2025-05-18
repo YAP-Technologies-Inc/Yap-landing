@@ -1,0 +1,56 @@
+<footer class="bg-neutral-900 py-12 md:py-20">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div>
+        <div class="mb-4 flex items-center">
+          <span class="mr-2 text-2xl font-bold text-yellow-400">YAP</span>
+          <span class="text-sm text-neutral-400">Yet Another Pronunciation</span>
+        </div>
+        <p class="mb-6 text-sm text-neutral-500">
+          Revolutionizing language learning with AI-powered pronunciation feedback. Master any accent, unlock new opportunities.
+        </p>
+        <div class="flex space-x-4">
+          <a *ngFor="let social of socialLinks" [href]="social.url" target="_blank" rel="noopener noreferrer" 
+             class="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-800 text-neutral-400 transition-colors hover:bg-yellow-400 hover:text-black">
+            <ion-icon [name]="social.icon" class="h-4 w-4"></ion-icon>
+          </a>
+        </div>
+      </div>
+
+      <div *ngFor="let section of footerLinks">
+        <h3 class="mb-4 font-semibold text-neutral-300">{{ section.category }}</h3>
+        <ul class="space-y-2">
+          <li *ngFor="let link of section.links">
+            <a [routerLink]="link.url" class="text-sm text-neutral-500 transition-colors hover:text-yellow-400">
+              {{ link.text }}
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="mb-4 font-semibold text-neutral-300">Stay Updated</h3>
+        <p class="mb-4 text-sm text-neutral-500">
+          Subscribe to our newsletter for the latest updates, tips, and special offers.
+        </p>
+        <form class="flex">
+          <input
+            type="email"
+            placeholder="Your email"
+            class="w-full rounded-l-md border-0 bg-neutral-800 px-3 py-2 text-sm text-neutral-300 outline-none"
+          />
+          <button
+            type="submit"
+            class="rounded-r-md bg-yellow-400 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-yellow-500"
+          >
+            Subscribe
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-neutral-800 pt-6 text-center text-xs text-neutral-600">
+      <p>© {{ currentYear }} YAP - Yet Another Pronunciation. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

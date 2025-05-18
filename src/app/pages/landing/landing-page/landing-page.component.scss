@@ -1,0 +1,15 @@
+/* landing-page.component.scss */
+:host {
+  display: block;
+  background-color: #171717; /* neutral-900 */
+  color: #f5f5f5; /* neutral-100 */
+}
+
+section {
+  scroll-margin-top: 4rem;
+}
+
+/* Add smooth scroll behavior */
+:host ::ng-deep html {
+  scroll-behavior: smooth;
+}

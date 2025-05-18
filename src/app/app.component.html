@@ -1,0 +1,8 @@
+<ion-app class="dark">
+  <!-- Loading overlay -->
+  <div *ngIf="loading" class="fixed inset-0 z-50 flex items-center justify-center bg-neutral-900/90 backdrop-blur-sm transition-opacity">
+    <ion-spinner name="dots" color="warning" class="h-16 w-16"></ion-spinner>
+  </div>
+  
+  <ion-router-outlet></ion-router-outlet>
+</ion-app>

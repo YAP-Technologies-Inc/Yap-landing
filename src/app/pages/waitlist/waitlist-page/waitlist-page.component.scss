@@ -1,0 +1,13 @@
+/* waitlist-page.component.scss */
+:host {
+  display: block;
+}
+
+ion-button {
+  --border-radius: 9999px;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+}
