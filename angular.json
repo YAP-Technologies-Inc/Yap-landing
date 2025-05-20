@@ -31,7 +31,12 @@
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
+            "scripts": [
+              {
+                "bundleName": "dynamic-wallet",
+                "input": "../dynamic-wallet-react/dist/dynamic-wallet-webcomponent.js"
+              }
+            ]
           },
           "configurations": {
             "production": {
@@ -102,7 +107,12 @@
               }
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
-            "scripts": []
+            "scripts": [
+              {
+                "bundleName": "dynamic-wallet",
+                "input": "../dynamic-wallet-react/dist/dynamic-wallet-webcomponent.js"
+              }
+            ]
           },
           "configurations": {
             "ci": {
