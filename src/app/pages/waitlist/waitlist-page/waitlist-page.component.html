@@ -27,10 +27,21 @@
         </div>
       </div>
 
+      <!-- Dynamic Wallet Connection -->
+      <div class="mb-8 rounded-lg bg-neutral-800 p-4">
+        <h3 class="mb-2 text-lg font-semibold text-neutral-100">Connect Your Wallet</h3>
+        <p class="mb-4 text-sm text-neutral-400">Please connect your wallet to join the waitlist</p>
+        
+        <dynamic-wallet-connect 
+          environment-id="{{dynamicEnvironmentId}}"
+          (wallet-connected)="onWalletConnected($event)">
+        </dynamic-wallet-connect>
+      </div>
+
       <!-- Waitlist Form -->
       <form [formGroup]="waitlistForm" (ngSubmit)="onSubmit()" *ngIf="!success">
         <div class="mb-4">
-          <label for="name" class="mb-1 block text-sm text-neutral-400">Full Name</label>
+          <label for="name" class="mb-1 block text-sm text-neutral-400">Name</label>
           <input
             id="name"
             type="text"
@@ -76,6 +87,24 @@
           </select>
           <div *ngIf="submitted && f['language'].errors" class="mt-1 text-sm text-red-400">
             Please select a language
+          </div>
+        </div>
+        
+        <!-- Hidden wallet inputs that are filled automatically -->
+        <input type="hidden" formControlName="seiWalletAddress" />
+        <input type="hidden" formControlName="dynamicUserId" />
+
+        <div class="mb-6">
+          <div class="mb-4 p-3 rounded-md bg-yellow-900/20 border border-yellow-700/20">
+            <div class="flex items-start gap-3">
+              <ion-icon name="wallet-outline" class="text-yellow-400 text-xl mt-1"></ion-icon>
+              <div>
+                <p class="text-neutral-200">Web3 wallet will be created automatically</p>
+                <p class="text-xs text-neutral-400 mt-1">
+                  A secure wallet is being generated for you in the background to enhance your YAP experience with Web3 features.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
