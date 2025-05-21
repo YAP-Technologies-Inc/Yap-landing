@@ -1,0 +1,29 @@
+.language-ticker {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 -2px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.ticker-container {
+  animation: scroll-x 40s linear infinite;
+  will-change: transform;
+}
+
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-item {
+  transition: opacity 0.3s;
+  
+  &:hover {
+    opacity: 0.9;
+  }
+}

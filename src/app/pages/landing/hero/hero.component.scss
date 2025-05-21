@@ -1,18 +1,92 @@
 /* hero.component.scss */
-:host {
+:host, .hero-bg {
   display: block;
-  height: 100%;
+  min-height: 100vh;
+  background: var(--main-bg);
+  color: var(--primary-text);
+  position: relative;
 }
 
-canvas {
-  display: block;
+.hero-canvas {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
+  z-index: 0;
+  display: block;
 }
 
-/* Add text shadow to paragraph for better legibility */
-p {
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+.logo-corner {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 2;
+  width: 3.5rem;
+}
+.logo-img {
+  width: 100%;
+  display: block;
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 10;
+  max-width: 700px;
+  margin: 0 auto;
+  min-height: 55vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 0.5rem;
+  text-align: center;
+  margin-top: 6vh;
+}
+
+.main-gradient-header {
+  background: linear-gradient(90deg, #00BFB3, #FF6B6B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: #333333; /* fallback for unsupported browsers */
+  font-size: 2.1rem;
+  font-weight: 800;
+  margin-bottom: 0.5em;
+  line-height: 1.15;
+  text-align: center;
+  /* Fallback for browsers that do not support background-clip:text */
+  @supports not ((-webkit-background-clip: text) and (-webkit-text-fill-color: transparent)) {
+    background: none;
+    color: #333333;
+  }
+}
+
+.fallback {
+  display: none;
+}
+
+.desktop-break {
+  display: none;
+}
+
+.hero-subhead {
+  color: var(--primary-text);
+  font-size: 1.1rem;
+  margin-top: 1.2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.hero-cta {
+  background: var(--cta) !important;
+  color: var(--body-text-on-dark) !important;
+  border-radius: 9999px;
+  font-weight: 600;
+  box-shadow: 0 2px 8px 0 rgba(0,191,179,0.10);
+  margin-top: 1.2rem;
+  padding: 0 1.2rem;
+  font-size: 1rem;
 }
 
 .language-ticker {
@@ -20,33 +94,47 @@ p {
   bottom: 0;
   left: 0;
   width: 100%;
+  background: var(--secondary-btn);
   box-shadow: 0 -2px 6px -1px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 0.75rem 0;
 }
-
 .ticker-container {
+  display: flex;
   animation: scroll-x 40s linear infinite;
   will-change: transform;
+  transform: translate3d(0, 0, 0);
 }
-
 @keyframes scroll-x {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+.ticker-item {
+  display: flex;
+  align-items: center;
+  margin: 0 1.5rem;
+}
+.ticker-text {
+  color: var(--body-text-on-dark);
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,0.5);
+  letter-spacing: 0.02em;
+}
+.ticker-flag {
+  margin-left: 0.5rem;
+  height: 1.25rem;
+  width: 1.75rem;
+  border-radius: 0.25rem;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
 }
 
-.ticker-item {
-  transition: opacity 0.3s;
-  
-  &:hover {
-    opacity: 0.9;
-  }
-  
-  span {
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8), 0 0 5px rgba(0, 0, 0, 0.5);
-    letter-spacing: 0.02em;
-    font-weight: 500;
-  }
+@media (min-width: 768px) {
+  .main-gradient-header { font-size: 4.5rem; }
+  .desktop-break { display: inline; }
+  .hero-overlay { margin-top: 12.5vh; padding: 2rem 1.5rem; min-height: 60vh; }
+  .logo-corner { width: 5rem; top: 1rem; left: 1rem; }
+  .hero-cta { font-size: 1.25rem; padding: 0 2.5rem; margin-top: 2rem; }
+  .hero-subhead { font-size: 1.25rem; margin-top: 1.5rem; margin-bottom: 2rem; }
 }

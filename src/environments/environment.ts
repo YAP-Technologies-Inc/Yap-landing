@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   apiUrl: 'http://yap.local',  // Default to local development server
-  dynamicEnvironmentId: 'dc8d9b9d-408c-4435-8b8a-af99f41a742e' // Development environment
 };
 
 /*

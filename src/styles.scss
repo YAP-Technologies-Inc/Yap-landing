@@ -1,0 +1,36 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global styles */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --main-bg: #F5F5F5;
+  --primary-text: #333333;
+  --body-text-on-bg: #333333;
+  --body-text-on-dark: #F5F5F5;
+  --cta: #00BFB3;
+  --secondary-btn: #5C6BC0;
+  --accent: #FF6B6B;
+}
+
+body {
+  background: var(--main-bg);
+  color: var(--primary-text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset default styles */
+* {
+  box-sizing: border-box;
+}

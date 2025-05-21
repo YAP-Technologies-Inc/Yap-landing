@@ -32,10 +32,7 @@
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": [
-              {
-                "bundleName": "dynamic-wallet",
-                "input": "../dynamic-wallet-react/dist/dynamic-wallet-webcomponent.js"
-              }
+              
             ]
           },
           "configurations": {
@@ -108,10 +105,7 @@
             ],
             "styles": ["src/global.scss", "src/theme/variables.scss"],
             "scripts": [
-              {
-                "bundleName": "dynamic-wallet",
-                "input": "../dynamic-wallet-react/dist/dynamic-wallet-webcomponent.js"
-              }
+              
             ]
           },
           "configurations": {

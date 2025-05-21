@@ -1,33 +1,32 @@
-<ion-content fullscreen class="relative flex flex-col items-center justify-center overflow-hidden">
+<ion-content fullscreen class="hero-bg">
   <!-- Three.js canvas -->
-  <canvas #canvas class="absolute inset-0 -z-10"></canvas>
-  
+  <canvas #canvas class="hero-canvas"></canvas>
+
   <!-- YAP Logo in top-left corner -->
-  <div class="absolute top-4 left-4 z-20 w-20 md:w-24">
-    <img src="assets/images/YAP.png" alt="YAP Logo" class="w-full">
+  <div class="logo-corner">
+    <img src="assets/images/YAP.png" alt="YAP Logo" class="logo-img">
   </div>
 
   <!-- Headline overlay -->
-  <div class="relative z-10 mx-auto flex h-full max-w-2xl flex-col items-center justify-center px-6 text-center">
-    <h1 class="bg-gradient-to-br from-neutral-200 via-yellow-100 to-yellow-400 bg-clip-text text-5xl font-extrabold text-transparent md:text-7xl">
-      Master a new language.<br class="hidden md:block"> Get rewarded.
+  <div class="hero-overlay">
+    <h1 class="main-gradient-header">
+      Master a new language.<br class="desktop-break">Get rewarded.
+      <span class="fallback">Master a new language. Get rewarded.</span>
     </h1>
-
-    <p class="mt-6 text-xl font-mediumI text-white">
+    <p class="hero-subhead">
       Sign up today to get early access, unlock exclusive features, and help shape the future of language learning.
     </p>
-
-    <ion-button size="large" shape="round" color="warning" routerLink="/waitlist" class="mt-10 px-8 text-black">
+    <ion-button size="large" shape="round" color="warning" routerLink="/waitlist" class="hero-cta">
       Join the waitlist
     </ion-button>
   </div>
-  
+
   <!-- Language Ticker (at bottom) -->
-  <div class="language-ticker absolute bottom-0 left-0 z-10 w-full overflow-hidden py-3">
-    <div class="ticker-container flex animate-scroll">
-      <div *ngFor="let greeting of greetings" class="ticker-item mx-6 flex items-center whitespace-nowrap">
-        <span class="text-lg font-medium text-white drop-shadow-md">{{ greeting.text }}</span>
-        <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ml-2 h-5 w-7 rounded-sm object-cover shadow-md">
+  <div class="language-ticker">
+    <div class="ticker-container">
+      <div *ngFor="let greeting of greetings" class="ticker-item">
+        <span class="ticker-text">{{ greeting.text }}</span>
+        <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
       </div>
     </div>
   </div>
