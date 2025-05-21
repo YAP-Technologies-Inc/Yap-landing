@@ -1,0 +1,8 @@
+<div class="language-ticker w-full overflow-hidden py-3 bg-blue-900/80 backdrop-blur-sm">
+  <div class="ticker-container flex animate-scroll transform-gpu">
+    <div *ngFor="let greeting of greetings" class="ticker-item mx-6 flex items-center whitespace-nowrap">
+      <span class="text-lg font-medium text-white drop-shadow-md">{{ greeting.text }}</span>
+      <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ml-2 h-5 w-7 rounded-sm object-cover shadow-md" loading="lazy">
+    </div>
+  </div>
+</div>

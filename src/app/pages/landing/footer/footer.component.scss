@@ -1,4 +1,6 @@
 /* footer.component.scss */
 :host {
   display: block;
+  background: var(--secondary-btn);
+  color: var(--body-text-on-dark);
 }

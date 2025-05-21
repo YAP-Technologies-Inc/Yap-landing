@@ -1,4 +1,10 @@
 /* timeline.component.scss */
 :host {
   display: block;
+  background: var(--main-bg);
+  color: var(--primary-text);
+}
+
+.timeline-point {
+  background: var(--accent);
 }

@@ -1,4 +1,14 @@
 /* feature-grid.component.scss */
 :host {
   display: block;
+  background: var(--main-bg);
+  color: var(--primary-text);
+}
+
+.feature-title {
+  color: var(--secondary-btn);
+}
+
+.feature-highlight {
+  color: var(--accent);
 }

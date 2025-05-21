@@ -1,8 +1,18 @@
 /* faq.component.scss */
 :host {
   display: block;
+  background: var(--main-bg);
+  color: var(--primary-text);
 }
 
 .faq-item {
   transition: all 0.3s ease;
+}
+
+.faq-question {
+  color: var(--accent);
+}
+
+.faq-answer {
+  color: var(--primary-text);
 }
