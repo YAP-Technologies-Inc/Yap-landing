@@ -1,35 +1,27 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/**/*.{html,ts}',
+    "./src/**/*.{html,ts,scss}",
+    "./src/**/*"
   ],
   theme: {
     extend: {
       colors: {
         primary: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-        }
-      },
-      animation: {
-        'scroll': 'scroll-x 40s linear infinite',
-      },
-      keyframes: {
-        'scroll-x': {
-          '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(-50%)' },
-        }
+          500: '#fdcc1e',
+          600: '#e6bf1a',
+        },
+        yap: '#4372c4',
+        'yap-dark': '#375ea8'
       }
     },
   },
   plugins: [],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+    defaultLineHeights: true,
+    standardFontWeights: true
+  }
 }
 

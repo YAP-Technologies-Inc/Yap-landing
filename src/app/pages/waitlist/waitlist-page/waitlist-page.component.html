@@ -1,18 +1,18 @@
-<ion-content class="bg-neutral-900">
+<ion-content class="form-container">
   <div class="mx-auto flex min-h-screen max-w-6xl flex-col items-center px-4 py-16 md:flex-row md:py-24">
     <!-- Left - Form Section -->
     <div class="w-full md:w-1/2 md:pr-12">
-      <a routerLink="/" class="mb-8 inline-flex items-center gap-2 text-sm text-neutral-400">
+      <a routerLink="/" class="back-link mb-8 inline-flex items-center gap-2">
         <ion-icon name="arrow-back-outline"></ion-icon> Back to home
       </a>
 
-      <h1 class="mb-6 text-4xl font-bold text-neutral-100 md:text-5xl">Join the waitlist</h1>
-      <p class="mb-8 text-xl text-neutral-400">
-        Be the first to access YAP and get exclusive early-bird benefits.
+      <h1 class="mb-6 text-4xl font-bold md:text-5xl" style="color: var(--yap-accent)">Join the waitlist</h1>
+      <p class="mb-8 text-xl label-text">
+        Start your language learning journey with YAP. Get early access and exclusive benefits.
       </p>
 
       <!-- Success Message -->
-      <div *ngIf="success" class="mb-8 rounded-lg bg-green-900/30 p-4 text-green-400">
+      <div *ngIf="success" class="success-message mb-8 rounded-lg p-4">
         <div class="flex items-center">
           <ion-icon name="checkmark-circle" class="mr-2 h-6 w-6"></ion-icon>
           <p>Thank you! You've been added to our waitlist. We'll be in touch soon.</p>
@@ -20,7 +20,7 @@
       </div>
       
       <!-- Error Message -->
-      <div *ngIf="errorMessage" class="mb-8 rounded-lg bg-red-900/30 p-4 text-red-400">
+      <div *ngIf="errorMessage" class="error-message mb-8 rounded-lg p-4">
         <div class="flex items-center">
           <ion-icon name="alert-circle" class="mr-2 h-6 w-6"></ion-icon>
           <p>{{ errorMessage }}</p>
@@ -30,43 +30,43 @@
       <!-- Waitlist Form -->
       <form [formGroup]="waitlistForm" (ngSubmit)="onSubmit()" *ngIf="!success">
         <div class="mb-4">
-          <label for="name" class="mb-1 block text-sm text-neutral-400">Name</label>
+          <label for="name" class="label-text mb-1 block text-sm">Name</label>
           <input
             id="name"
             type="text"
             formControlName="name"
-            class="w-full rounded-md border-0 bg-neutral-800 px-4 py-3 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            [ngClass]="{ 'ring-2 ring-red-500': submitted && f['name'].errors }"
+            class="form-input w-full rounded-md px-4 py-3"
+            placeholder="Enter your name"
           />
-          <div *ngIf="submitted && f['name'].errors" class="mt-1 text-sm text-red-400">
+          <div *ngIf="submitted && f['name'].errors" class="error-text mt-1 text-sm">
             Name is required
           </div>
         </div>
 
         <div class="mb-4">
-          <label for="email" class="mb-1 block text-sm text-neutral-400">Email Address</label>
+          <label for="email" class="label-text mb-1 block text-sm">Email Address</label>
           <input
             id="email"
             type="email"
             formControlName="email"
-            class="w-full rounded-md border-0 bg-neutral-800 px-4 py-3 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            [ngClass]="{ 'ring-2 ring-red-500': submitted && f['email'].errors }"
+            class="form-input w-full rounded-md px-4 py-3"
+            placeholder="Enter your email address"
           />
-          <div *ngIf="submitted && f['email'].errors" class="mt-1 text-sm text-red-400">
+          <div *ngIf="submitted && f['email'].errors" class="error-text mt-1 text-sm">
             <span *ngIf="f['email'].errors['required']">Email is required</span>
             <span *ngIf="f['email'].errors['email']">Please enter a valid email</span>
           </div>
         </div>
 
         <div class="mb-6">
-          <label for="language" class="mb-1 block text-sm text-neutral-400">Primary Language Interest</label>
+          <label for="language" class="label-text mb-1 block text-sm">Which language do you want to learn?</label>
+          <p class="text-xs mb-2 label-text opacity-75">Select the language you're most interested in practicing with YAP</p>
           <select
             id="language"
             formControlName="language"
-            class="w-full rounded-md border-0 bg-neutral-800 px-4 py-3 text-neutral-100 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            [ngClass]="{ 'ring-2 ring-red-500': submitted && f['language'].errors }"
+            class="form-input w-full rounded-md px-4 py-3"
           >
-            <option value="" disabled selected>Select a language</option>
+            <option value="" disabled selected>Choose a language to learn</option>
             <option value="english">English</option>
             <option value="spanish">Spanish</option>
             <option value="french">French</option>
@@ -74,8 +74,8 @@
             <option value="japanese">Japanese</option>
             <option value="other">Other</option>
           </select>
-          <div *ngIf="submitted && f['language'].errors" class="mt-1 text-sm text-red-400">
-            Please select a language
+          <div *ngIf="submitted && f['language'].errors" class="error-text mt-1 text-sm">
+            Please select the language you want to learn
           </div>
         </div>
 
@@ -85,14 +85,13 @@
               id="acceptTerms"
               type="checkbox"
               formControlName="acceptTerms"
-              class="h-4 w-4 rounded border-neutral-600 bg-neutral-800 text-yellow-400 focus:ring-2 focus:ring-yellow-400"
-              [ngClass]="{ 'ring-2 ring-red-500': submitted && f['acceptTerms'].errors }"
+              class="form-input h-4 w-4 rounded"
             />
-            <label for="acceptTerms" class="ml-2 text-sm text-neutral-400">
+            <label for="acceptTerms" class="label-text ml-2 text-sm">
               I agree to receive communication about YAP
             </label>
           </div>
-          <div *ngIf="submitted && f['acceptTerms'].errors" class="mt-1 text-sm text-red-400">
+          <div *ngIf="submitted && f['acceptTerms'].errors" class="error-text mt-1 text-sm">
             You must agree to the terms
           </div>
         </div>
@@ -101,8 +100,7 @@
           type="submit"
           expand="block"
           size="large"
-          color="warning"
-          class="text-black"
+          class="hero-cta"
           [disabled]="isSubmitting"
         >
           <ion-spinner *ngIf="isSubmitting" name="dots" class="mr-2"></ion-spinner>
@@ -113,12 +111,12 @@
 
     <!-- Right - Image/Illustration -->
     <div class="mt-12 hidden w-full md:mt-0 md:block md:w-1/2">
-      <div class="relative aspect-square w-full rounded-lg bg-gradient-to-br from-yellow-400/20 to-purple-500/20 p-8">
+      <div class="relative aspect-square w-full rounded-lg p-8 form-input">
         <div class="absolute inset-0 flex items-center justify-center">
           <div class="text-center">
-            <ion-icon name="mic" class="h-24 w-24 text-yellow-400"></ion-icon>
-            <h3 class="mt-4 text-2xl font-bold text-neutral-200">Join 500+ early adopters</h3>
-            <p class="mt-2 text-neutral-400">Limited spots available for our beta program</p>
+            <ion-icon name="mic" class="h-24 w-24" style="color: var(--yap-accent)"></ion-icon>
+            <h3 class="mt-4 text-2xl font-bold" style="color: var(--yap-accent)">Join 500+ early adopters</h3>
+            <p class="mt-2 label-text">Limited spots available for our beta program</p>
           </div>
         </div>
       </div>

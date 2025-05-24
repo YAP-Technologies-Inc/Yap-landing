@@ -1,32 +1,49 @@
 <ion-content fullscreen class="hero-bg">
-  <!-- Three.js canvas -->
-  <canvas #canvas class="hero-canvas"></canvas>
+  <!-- X Link in top-right corner -->
+  <div class="x-link">
+    <a href="" target="_blank" rel="noopener noreferrer">
+      <img src="assets/x-icon-new.svg" alt="X (Twitter)" class="x-icon">
+    </a>
+  </div>
 
-  <!-- YAP Logo in top-left corner -->
-  <div class="logo-corner">
+  <!-- Headline at top -->
+  <div class="headline-top">
+    <h1>Yap is a gamefied talk-to-earn language learning app</h1>
+  </div>
+
+  <!-- Centered YAP Logo -->
+  <div class="logo-center">
     <img src="assets/images/YAP.png" alt="YAP Logo" class="logo-img">
   </div>
 
-  <!-- Headline overlay -->
+  <!-- Main headline -->
   <div class="hero-overlay">
-    <h1 class="main-gradient-header">
-      Master a new language.<br class="desktop-break">Get rewarded.
-      <span class="fallback">Master a new language. Get rewarded.</span>
+    <h1 class="main-header">
+      Get paid to learn a new language!
     </h1>
-    <p class="hero-subhead">
-      Sign up today to get early access, unlock exclusive features, and help shape the future of language learning.
-    </p>
-    <ion-button size="large" shape="round" color="warning" routerLink="/waitlist" class="hero-cta">
-      Join the waitlist
-    </ion-button>
+    
+    <div class="waitlist-cta">
+      <p class="waitlist-text">Join the Beta Waitlist, Earn Points.</p>
+      <ion-button size="large" shape="round" class="hero-cta" routerLink="/waitlist">
+        Create Your Account
+      </ion-button>
+    </div>
   </div>
 
   <!-- Language Ticker (at bottom) -->
   <div class="language-ticker">
-    <div class="ticker-container">
-      <div *ngFor="let greeting of greetings" class="ticker-item">
-        <span class="ticker-text">{{ greeting.text }}</span>
-        <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+    <div class="ticker-wrapper">
+      <div class="ticker-container">
+        <div *ngFor="let greeting of greetings" class="ticker-item">
+          <span class="ticker-text">{{ greeting.text }}</span>
+          <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+        </div>
+      </div>
+      <div class="ticker-container">
+        <div *ngFor="let greeting of greetings" class="ticker-item">
+          <span class="ticker-text">{{ greeting.text }}</span>
+          <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+        </div>
       </div>
     </div>
   </div>
