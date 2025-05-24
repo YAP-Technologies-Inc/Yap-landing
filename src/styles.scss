@@ -13,21 +13,100 @@ html, body {
 }
 
 :root {
-  --main-bg: #F5F5F5;
   --primary-text: #333333;
   --body-text-on-bg: #333333;
   --body-text-on-dark: #F5F5F5;
   --cta: #00BFB3;
   --secondary-btn: #5C6BC0;
   --accent: #FF6B6B;
+  /* Remove duplicate yap-background declaration as it's defined in custom-colors.scss */
 }
 
+/* Ionic Components Override */
+:root {
+  /* Override Ionic colors */
+  --ion-color-primary: var(--secondary-btn);
+  --ion-color-secondary: var(--cta);
+  --ion-color-warning: var(--cta);
+  --ion-color-danger: var(--accent);
+  
+  /* Override Ionic background/text colors */
+  --ion-background-color: var(--yap-background);
+  --ion-text-color: var(--primary-text);
+}
+
+/* Global Ionic button styles */
+ion-button {
+  --background: var(--cta) !important;
+  --color: var(--body-text-on-dark) !important;
+  --background-hover: #00a89e !important;
+  --background-activated: #009c93 !important;
+  --background-focused: #00bfb3 !important;
+  font-weight: 600 !important;
+  --box-shadow: 0 2px 8px rgba(0, 191, 179, 0.15);
+  --border-radius: 9999px;
+}
+
+/* Brand blue button style */
+ion-button.brand-blue-button {
+  --background: var(--secondary-btn) !important;
+  --color: #FFFFFF !important;
+  --background-hover: #4c5aa8 !important;
+  --background-activated: #4c5aa8 !important;
+  --background-focused: #5C6BC0 !important;
+  --box-shadow: 0 2px 8px rgba(92, 107, 192, 0.2);
+}
+
+/* Override the internal button styles */
+ion-button.brand-blue-button::part(native) {
+  background-color: #5C6BC0 !important;
+  color: white !important;
+}
+
+ion-button[color="warning"] {
+  --background: var(--cta) !important;
+  --color: var(--body-text-on-dark) !important;
+}
+
+ion-button[color="secondary"] {
+  --background: var(--secondary-btn) !important;
+  --color: var(--body-text-on-dark) !important;
+}
+
+ion-button[color="danger"] {
+  --background: var(--accent) !important;
+  --color: var(--body-text-on-dark) !important;
+}
+
+/* Global backgrounds and text */
 body {
-  background: var(--main-bg);
+  background: var(--yap-background) !important;
   color: var(--primary-text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ionic content override - important to ensure consistency */
+ion-content {
+  --background: var(--yap-background) !important;
+  --color: var(--primary-text) !important;
+  background-color: var(--yap-background) !important;
+}
+
+/* Override for text on dark backgrounds */
+.bg-dark {
+  background-color: var(--primary-text) !important;
+  color: var(--body-text-on-dark) !important;
+}
+
+/* Accent elements */
+.accent {
+  color: var(--accent) !important;
+}
+
+.cta {
+  color: var(--cta) !important;
 }
 
 /* Reset default styles */

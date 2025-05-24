@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ThreeSceneModule } from './three-scene/three-scene.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,8 +13,7 @@ import { ThreeSceneModule } from './three-scene/three-scene.module';
     BrowserModule, 
     HttpClientModule,
     IonicModule.forRoot(), 
-    AppRoutingModule,
-    ThreeSceneModule
+    AppRoutingModule
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

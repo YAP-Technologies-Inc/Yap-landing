@@ -1,7 +1,7 @@
 /* landing-page.component.scss */
 :host {
   display: block;
-  background-color: var(--main-bg);
+  background-color: var(--yap-background); /* Change from --main-bg to --yap-background */
   color: var(--primary-text);
 }
 

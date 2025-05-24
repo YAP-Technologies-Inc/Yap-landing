@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 export interface WaitlistEntry {
   name: string;
   email: string;
-  language_preferred: string;
+  language_to_learn: string;
   acceptTerms: boolean;
 }
 
@@ -25,7 +25,8 @@ export class WaitlistService {
    * Submits a waitlist entry
    */
   submitWaitlistEntry(entry: WaitlistEntry): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/wallet`, entry).pipe(
+    // Use the wallet endpoint for waitlist registration
+    return this.http.post(`/auth/wallet`, entry).pipe(
       catchError(error => {
         console.error('Error submitting waitlist entry:', error);
         throw error;

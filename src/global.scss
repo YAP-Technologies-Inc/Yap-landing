@@ -35,6 +35,7 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* Theme variables for Ionic */
 @import 'theme/variables.scss';
+@import 'theme/custom-colors.scss';
 
 /* Dark mode for Ionic - using system preference */
 /* Using the color scheme from variables.scss instead of direct imports */
@@ -45,3 +46,16 @@
 @tailwind components;
 @tailwind utilities;
 /* stylelint-enable */
+
+/* Custom YAP button styles */
+.brand-blue-button {
+  --background: #5C6BC0 !important;
+  --background-activated: #4C5AA8 !important;
+  --background-hover: #7982CC !important;
+  --color: #ffffff !important;
+  --box-shadow: 0 4px 12px rgba(92, 107, 192, 0.3) !important;
+}
+
+.hero-cta {
+  padding: 0!important;
+}

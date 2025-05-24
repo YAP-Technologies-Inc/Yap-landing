@@ -3,25 +3,25 @@
 /* Global defaults for light mode */
 :root {
   /* Main colors */
-  --yap-background: #F5F5F5;
-  --yap-text-primary: #333333;
-  --yap-text-inverse: #F5F5F5;
-  --yap-primary: #00BFB3;
-  --yap-secondary: #5C6BC0;
-  --yap-accent: #FF6B6B;
+  --yap-background: #4372c4;  /* Main brand blue color from screenshot */
+  --yap-text-primary: #FFFFFF;
+  --yap-text-inverse: #333333;
+  --yap-primary: #FFDA44;     /* Yellow accent for buttons */
+  --yap-secondary: #0A3984;   /* Slightly darker blue for contrast */
+  --yap-accent: #FFF1D0;      /* Light cream color for the YAP logo */
   
   /* Derived colors for various uses */
-  --yap-primary-light: #33CBB1;
-  --yap-primary-dark: #00A59A;
-  --yap-secondary-light: #7982CC;
-  --yap-secondary-dark: #4C5AA8;
-  --yap-accent-light: #FF8787;
-  --yap-accent-dark: #FF4F4F;
+  --yap-primary-light: #FFE47A;
+  --yap-primary-dark: #FFCB00;
+  --yap-secondary-light: #5A88DF;
+  --yap-secondary-dark: #2A58AF;
+  --yap-accent-light: #FFFFFF;
+  --yap-accent-dark: #E5D7B8;
   
   /* Background gradients */
-  --yap-gradient-primary: linear-gradient(135deg, #00BFB3 0%, #33CBB1 100%);
-  --yap-gradient-secondary: linear-gradient(135deg, #5C6BC0 0%, #7982CC 100%);
-  --yap-gradient-accent: linear-gradient(135deg, #FF6B6B 0%, #FF8787 100%);
+  --yap-gradient-primary: linear-gradient(180deg, #4A78CF 0%, #3A68BF 100%);
+  --yap-gradient-secondary: linear-gradient(180deg, #FFDA44 0%, #FFCB00 100%);
+  --yap-gradient-accent: linear-gradient(135deg, #FFF1D0 0%, #E5D7B8 100%);
 }
 
 /* Dark mode overrides */

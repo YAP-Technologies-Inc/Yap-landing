@@ -1,13 +1,106 @@
 /* waitlist-page.component.scss */
 :host {
   display: block;
+  background-color: var(--yap-background);
+  color: var(--yap-text-primary);
+  min-height: 100vh;
 }
 
-ion-button {
+/* Style for the button */
+ion-button.brand-blue-button {
   --border-radius: 9999px;
+  --background: var(--yap-primary) !important;
+  --color: #000000 !important;
+  --background-hover: var(--yap-primary-dark) !important;
+  --background-activated: var(--yap-primary-dark) !important;
+  --background-focused: var(--yap-primary) !important;
+  --ripple-color: #000000;
+  box-shadow: 0 2px 8px rgba(255, 218, 68, 0.2);
+  
+  &::part(native) {
+    background: var(--yap-primary) !important;
+    color: #000000 !important;
+    border-radius: 9999px;
+  }
+  
+  &:hover::part(native) {
+    background: var(--yap-primary-dark) !important;
+  }
+}
+
+.form-container {
+  background: var(--yap-background);
+}
+
+.form-input {
+  background: rgba(255, 218, 68, 0.1);
+  color: var(--yap-text-primary);
+  border: 2px solid rgba(255, 218, 68, 0.5);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  
+  &:focus {
+    border-color: var(--yap-primary);
+    outline: none;
+    box-shadow: 0 2px 12px rgba(255, 218, 68, 0.3);
+    background: rgba(255, 218, 68, 0.15);
+  }
+  
+  &:hover:not(:focus) {
+    border-color: rgba(255, 218, 68, 0.8);
+    box-shadow: 0 4px 8px rgba(255, 218, 68, 0.15);
+  }
+
+  &::placeholder {
+    color: rgba(255, 241, 208, 0.7);
+    font-style: italic;
+  }
+}
+
+.label-text {
+  color: var(--yap-text-primary);
+}
+
+.error-text {
+  color: var(--yap-accent);
+}
+
+.success-message {
+  background-color: var(--yap-primary);
+  color: #000000;
+}
+
+.error-message {
+  background-color: #ef4444;
+  color: #FFFFFF;
+}
+
+.back-link {
+  color: var(--yap-text-primary);
+  
+  &:hover {
+    color: var(--yap-accent);
+  }
 }
 
 input:focus,
 select:focus {
   outline: none;
+}
+
+/* Adding hero-cta button style to match landing page */
+.hero-cta {
+  background: transparent !important;
+  color: #fff !important;
+
+  &::part(native) {
+    background: var(--yap-primary) !important;
+    color: #fff !important;
+    border-radius: 9999px;
+  }
+
+  &:hover::part(native) {
+    background: var(--yap-primary-dark) !important;
+  }
 }

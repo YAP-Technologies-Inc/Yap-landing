@@ -1,0 +1,7 @@
+node_modules
+www
+.git
+.gitignore
+.angular
+temp
+*.log

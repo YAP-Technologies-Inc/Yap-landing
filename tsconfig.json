@@ -23,6 +23,23 @@
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": false,
     "skipLibCheck": true,
+    "paths": {
+      "@angular/*": [
+        "node_modules/@angular/*"
+      ],
+      "@app/*": [
+        "src/app/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@environments/*": [
+        "src/environments/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
+    },
     "types": ["node"]
   },
   "angularCompilerOptions": {

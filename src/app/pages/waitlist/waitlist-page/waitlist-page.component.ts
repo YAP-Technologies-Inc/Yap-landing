@@ -48,7 +48,7 @@ export class WaitlistPageComponent implements OnInit {
     const waitlistEntry: WaitlistEntry = {
       name: this.waitlistForm.value.name,
       email: this.waitlistForm.value.email,
-      language_preferred: this.waitlistForm.value.language,
+      language_to_learn: this.waitlistForm.value.language,
       acceptTerms: this.waitlistForm.value.acceptTerms
     };
 
