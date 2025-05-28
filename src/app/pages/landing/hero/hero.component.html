@@ -1,23 +1,34 @@
 <ion-content fullscreen class="hero-bg">
   <!-- Three.js canvas -->
   <canvas #canvas class="hero-canvas"></canvas>
+  
+  <!-- X (Twitter) social media link in the upper right corner -->
+  <div class="x-social-link">
+    <a href="https://x.com/yaplearning?s=21" target="_blank" rel="noopener">
+      <img src="assets/x-logo/icons8-x-500.png" alt="Follow YAP on X" class="x-logo">
+    </a>
+  </div>
+  
+  <!-- App description above logo -->
+  <div class="app-description">
+    <p>YAP is a gamefied talk-to-earn language learning app</p>
+  </div>
 
-  <!-- YAP Logo in top-left corner -->
-  <div class="logo-corner">
+  <!-- YAP Logo centered -->
+  <div class="logo-centered">
     <img src="assets/images/YAP.png" alt="YAP Logo" class="logo-img">
   </div>
 
   <!-- Headline overlay -->
   <div class="hero-overlay">
-    <h1 class="main-gradient-header">
-      Master a new language.<br class="desktop-break">Get rewarded.
-      <span class="fallback">Master a new language. Get rewarded.</span>
-    </h1>
+    <h2 class="main-header headline">
+      Get paid to learn a new language!
+    </h2>
     <p class="hero-subhead">
-      Sign up today to get early access, unlock exclusive features, and help shape the future of language learning.
+      Join the Beta Waitlist, Earn Points.
     </p>
-    <ion-button size="large" shape="round" color="warning" routerLink="/waitlist" class="hero-cta">
-      Join the waitlist
+    <ion-button size="large" shape="round" routerLink="/waitlist" class="hero-cta">
+      CREATE YOUR ACCOUNT
     </ion-button>
   </div>
 

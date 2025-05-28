@@ -3,8 +3,26 @@
   display: block;
 }
 
+.yap-blue-bg {
+  --background: #4372c4 !important; /* Same blue color as landing page */
+  color: white;
+}
+
 ion-button {
   --border-radius: 9999px;
+}
+
+.yap-cta {
+  --background: #efc52a !important; /* Golden yellow button color to match landing page */
+  --color: black !important;
+  --border-radius: 100px;
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  --padding-start: 2rem;
+  --padding-end: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 input:focus,

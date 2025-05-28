@@ -50,11 +50,11 @@ export class HeroComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // Run animation outside Angular to keep Change Detection cheap
-    this.zone.runOutsideAngular(() => {
-      this.setupThreeJS();
-      this.animate();
-    });
+    // Disable Three.js animation - using CSS animations only
+    // this.zone.runOutsideAngular(() => {
+    //   this.setupThreeJS();
+    //   this.animate();
+    // });
   }
 
   private setupThreeJS() {
