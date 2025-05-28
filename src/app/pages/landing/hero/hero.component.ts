@@ -28,25 +28,31 @@ export class HeroComponent implements OnInit, AfterViewInit {
   private material!: THREE.ShaderMaterial;
   private mesh!: THREE.Mesh;
 
-  // Greetings in different languages with their flags
-  greetings: Greeting[] = [
+  // Original greetings in different languages with their flags
+  originalGreetings: Greeting[] = [
+    { text: 'こんにちは', language: 'Japanese', flagUrl: 'assets/flags/jp.svg' },
+    { text: '안녕하세요', language: 'Korean', flagUrl: 'assets/flags/kr.svg' },
+    { text: 'Olá', language: 'Portuguese', flagUrl: 'assets/flags/pt.svg' },
+    { text: 'Привет', language: 'Russian', flagUrl: 'assets/flags/ru.svg' },
+    { text: 'Salutón', language: 'Spanish', flagUrl: 'assets/flags/es.svg' },
+    { text: 'Salve', language: 'Italian', flagUrl: 'assets/flags/it.svg' },
+    { text: 'Γειά σου', language: 'Greek', flagUrl: 'assets/flags/gr.svg' },
     { text: 'Hello', language: 'English', flagUrl: 'assets/flags/gb.svg' },
     { text: 'Hola', language: 'Spanish', flagUrl: 'assets/flags/es.svg' },
     { text: 'Bonjour', language: 'French', flagUrl: 'assets/flags/fr.svg' },
     { text: 'Ciao', language: 'Italian', flagUrl: 'assets/flags/it.svg' },
     { text: 'Hallo', language: 'German', flagUrl: 'assets/flags/de.svg' },
-    { text: '你好', language: 'Chinese', flagUrl: 'assets/flags/cn.svg' },
-    { text: 'こんにちは', language: 'Japanese', flagUrl: 'assets/flags/jp.svg' },
-    { text: '안녕하세요', language: 'Korean', flagUrl: 'assets/flags/kr.svg' },
-    { text: 'Olá', language: 'Portuguese', flagUrl: 'assets/flags/pt.svg' },
-    { text: 'Привет', language: 'Russian', flagUrl: 'assets/flags/ru.svg' }
+    { text: '你好', language: 'Chinese', flagUrl: 'assets/flags/cn.svg' }
   ];
+  
+  // Copy of greetings for backward compatibility
+  greetings: Greeting[] = [];
 
   constructor(private zone: NgZone) {}
 
   ngOnInit() {
-    // Double the greetings array to create a continuous effect
-    this.greetings = [...this.greetings, ...this.greetings];
+    // Keep the greetings property populated for backward compatibility
+    this.greetings = [...this.originalGreetings];
   }
 
   ngAfterViewInit() {

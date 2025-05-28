@@ -2,16 +2,16 @@
   <!-- Three.js canvas -->
   <canvas #canvas class="hero-canvas"></canvas>
   
-  <!-- X (Twitter) social media link in the upper right corner -->
-  <div class="x-social-link">
-    <a href="https://x.com/yaplearning?s=21" target="_blank" rel="noopener">
-      <img src="assets/x-logo/icons8-x-500.png" alt="Follow YAP on X" class="x-logo">
-    </a>
-  </div>
-  
   <!-- App description above logo -->
   <div class="app-description">
     <p>YAP is a gamefied talk-to-earn language learning app</p>
+  </div>
+  
+  <!-- X (Twitter) social media link -->
+  <div class="x-social-link">
+    <a href="https://x.com/yaplearning?s=21" target="_blank" rel="noopener" aria-label="Follow YAP on X" class="x-circle">
+      <img src="assets/x-logo/icons8-x-500.png" alt="Follow YAP on X" class="x-logo">
+    </a>
   </div>
 
   <!-- YAP Logo centered -->
@@ -32,12 +32,24 @@
     </ion-button>
   </div>
 
-  <!-- Language Ticker (at bottom) -->
+  <!-- Language Ticker (at bottom) - using a different approach for continuous scrolling -->
   <div class="language-ticker">
-    <div class="ticker-container">
-      <div *ngFor="let greeting of greetings" class="ticker-item">
-        <span class="ticker-text">{{ greeting.text }}</span>
-        <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+    <div class="ticker-wrap">
+      <div class="ticker-move">
+        <div *ngFor="let greeting of originalGreetings" class="ticker-item">
+          <span class="ticker-text">{{ greeting.text }}</span>
+          <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+        </div>
+        <!-- Duplicate for seamless looping -->
+        <div *ngFor="let greeting of originalGreetings" class="ticker-item">
+          <span class="ticker-text">{{ greeting.text }}</span>
+          <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+        </div>
+        <!-- Additional duplicate for longer screens -->
+        <div *ngFor="let greeting of originalGreetings" class="ticker-item">
+          <span class="ticker-text">{{ greeting.text }}</span>
+          <img [src]="greeting.flagUrl" [alt]="greeting.language" class="ticker-flag">
+        </div>
       </div>
     </div>
   </div>

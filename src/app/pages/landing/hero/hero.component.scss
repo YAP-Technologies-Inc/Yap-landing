@@ -5,6 +5,11 @@
   background: #4372c4 !important; /* Force the specific blue color regardless of theme */
   color: white;
   position: relative;
+  
+  /* CSS Custom Properties for mobile viewport management */
+  --mobile-ticker-clearance: 60px;
+  --mobile-ticker-height: 45px;
+  --mobile-safe-area-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 /* Override any theme variables that might affect the background */
@@ -29,32 +34,53 @@
   z-index: 20;
 }
 
-.x-logo {
-  width: 24px;
-  height: 24px;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
+.x-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3); /* White circle with opacity 0.3 */
+  transition: transform 0.2s ease;
 }
 
-.x-social-link a:hover .x-logo {
+.x-logo {
+  width: 18px;
+  height: 18px;
   opacity: 1;
+}
+
+.x-social-link a:hover {
+  transform: scale(1.05);
+}
+
+/* Mobile adjustments for X logo positioning */
+@media (max-width: 767px) {
+  .x-social-link {
+    position: absolute;
+    top: 25px; /* Move down slightly */
+    right: 15px; /* Move more to the right edge */
+    margin: 0; /* Remove the center margin */
+  }
 }
 
 .app-description {
   position: relative;
   z-index: 10;
   text-align: center;
-  margin-top: 40px; /* Increased top margin for better spacing */
-  font-size: 1.1rem; /* Slightly larger text to match larger logo */
+  margin-top: 25px; /* Reduced top margin to move it up */
+  font-size: 0.9rem; /* Smaller font size */
   color: white;
-  padding: 0 20px; /* Add some padding for mobile */
+  padding: 0 50px; /* Increased padding for X logo visibility */
+  opacity: 0.9; /* Slightly transparent */
 }
 
 .logo-centered {
   position: relative;
   z-index: 10;
-  width: 280px; /* Increased from 200px */
-  margin: 80px auto 20px; /* Reduced top margin to accommodate larger logo */
+  width: 280px; /* Larger logo size */
+  margin: 40px auto 20px; /* Reduced top margin to move it up after smaller app description */
   text-align: center;
 }
 
@@ -131,39 +157,60 @@
 }
 
 .language-ticker {
-  position: absolute;
-  bottom: 0;
+  position: fixed; /* Fixed position to ensure it stays at bottom of viewport */
+  bottom: env(safe-area-inset-bottom, 0px); /* Use safe area to avoid browser UI */
   left: 0;
   width: 100%;
-  background: rgba(0, 0, 0, 0.15); /* Darker transparent background to match screenshot */
-  box-shadow: 0 -2px 6px -1px rgba(0, 0, 0, 0.1);
-  z-index: 10;
-  padding: 0.75rem 0;
-  overflow: hidden; /* Ensure content doesn't spill out */
+  background: rgba(0, 0, 0, 0.4); /* Semi-transparent dark background like picasso.markets */
+  z-index: 99999; /* Very high z-index to ensure it's above all content */
+  padding: 12px 0; /* Consistent padding top and bottom */
+  overflow: hidden; /* Hide content that overflows */
+  
+  /* Ensure it's always visible above mobile browser UI */
+  /* This positions it at the bottom of the safe area, which is above browser UI */
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
 }
-.ticker-container {
-  display: flex;
-  animation: scroll-x 40s linear infinite;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  width: fit-content; /* Ensure the container fits all the items */
+
+/* New ticker structure */
+.ticker-wrap {
+  width: 100%;
+  overflow: hidden;
 }
-@keyframes scroll-x {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+
+.ticker-move {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 40s linear infinite;
+  will-change: transform; /* Performance optimization */
+  -webkit-backface-visibility: hidden; /* Safari fix */
+  backface-visibility: hidden;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+    -webkit-transform: translate3d(0, 0, 0); /* Safari fix */
+  }
+  100% {
+    transform: translate3d(-33.333%, 0, 0); /* Move by one third (since we have 3 copies) */
+    -webkit-transform: translate3d(-33.333%, 0, 0); /* Safari fix */
+  }
 }
 .ticker-item {
   display: flex;
   align-items: center;
-  margin: 0 1.5rem;
+  padding: 0 1.5rem;
+  white-space: nowrap;
 }
+
 .ticker-text {
   color: #f5f5f5; /* Explicit color as requested */
   font-size: 1.125rem;
   font-weight: 500;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.8), 0 0 5px rgba(0,0,0,0.5);
+  text-shadow: 0 1px 3px rgba(0,0,0,0.4);
   letter-spacing: 0.02em;
 }
+
 .ticker-flag {
   margin-left: 0.5rem;
   height: 1.25rem;
@@ -180,4 +227,157 @@
   .hero-cta { font-size: 1.25rem; }
   .hero-subhead { font-size: 1.5rem; margin-bottom: 2.5rem; }
   .app-description { font-size: 1.2rem; margin-top: 50px; } /* Larger app description */
+  
+  /* Desktop ticker adjustments */
+  .ticker-text { font-size: 1.25rem; }
+  .ticker-flag { height: 1.4rem; width: 2rem; }
+}
+
+/* Mobile devices adjustments */
+@media (max-width: 767px) {
+  /* Mobile bottom hugging positioning for ticker (like picasso.markets) */
+  .language-ticker {
+    /* Strategy: Use modern CSS to position at the bottom of the visible viewport */
+    /* This accounts for mobile browser UI while still hugging the visible bottom */
+    
+    /* Primary positioning: Bottom of the safe area (above browser UI) */
+    bottom: max(env(safe-area-inset-bottom, 0px), 0px);
+    
+    /* For browsers that support dynamic viewport units (most modern mobile browsers) */
+    /* This ensures we're at the bottom of the visible viewport, not behind browser UI */
+    bottom: max(calc(100vh - 100dvh), env(safe-area-inset-bottom, 0px));
+    
+    /* Fallback for older browsers without dvh support */
+    /* Use a small buffer to avoid browser UI overlap while still hugging bottom */
+    bottom: env(safe-area-inset-bottom, 8px);
+    
+    padding: 10px 0; /* Uniform padding top and bottom */
+    
+    /* Enhanced mobile styling */
+    background: rgba(0, 0, 0, 0.45); /* Slightly more opaque on mobile for better contrast */
+    transform: translateZ(0); /* Hardware acceleration */
+    -webkit-transform: translateZ(0);
+    min-height: 40px; /* Ensure minimum touchable height */
+  }
+  
+  /* iOS Safari specific adjustments */
+  @supports (-webkit-touch-callout: none) {
+    .language-ticker {
+      /* iOS Safari has dynamic toolbars, so we need to be more conservative */
+      bottom: max(env(safe-area-inset-bottom, 8px), 8px);
+      /* Use safe area inset bottom + small buffer for iOS */
+      padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+  
+  /* Android Chrome and other mobile browsers */
+  @supports not (-webkit-touch-callout: none) {
+    .language-ticker {
+      /* Android browsers are more predictable with viewport units */
+      bottom: max(calc(100vh - 100dvh), env(safe-area-inset-bottom, 0px));
+      /* Fallback for browsers without dvh */
+      bottom: env(safe-area-inset-bottom, 4px);
+    }
+  }
+  
+  /* Landscape orientation adjustments */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .language-ticker {
+      /* In landscape, browser UI is typically smaller */
+      bottom: max(env(safe-area-inset-bottom, 0px), 0px);
+      padding: 8px 0; /* Slightly reduce padding in landscape to save vertical space */
+    }
+  }
+  
+  /* Faster animation for smaller screens */
+  .ticker-move {
+    animation: ticker 30s linear infinite;
+  }
+  
+  /* Mobile adjustments for logo and app description */
+  .logo-centered {
+    margin: 15px auto 10px; /* Less margin to accommodate X logo */
+  }
+  
+  .app-description {
+    margin-top: 20px;
+    margin-bottom: 5px; /* Less margin to keep description closer to X logo */
+  }
+  
+  .hero-overlay {
+    margin-top: 5px; /* Adjust for X logo below */
+    /* Add padding at the bottom to prevent content from being hidden by the ticker */
+    /* Account for ticker height + safe area + buffer space */
+    padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+  }
+  
+  /* Landscape specific hero overlay adjustments */
+  @media (orientation: landscape) and (max-height: 500px) {
+    .hero-overlay {
+      padding-bottom: calc(60px + env(safe-area-inset-bottom, 0px)); /* Slightly less padding in landscape */
+    }
+  }
+
+  /* iOS Safari specific fixes - simplified */
+  @supports (-webkit-touch-callout: none) {
+    .language-ticker {
+      /* Only adjust for safe area, keep hugging bottom */
+      margin-bottom: env(safe-area-inset-bottom, 0px);
+    }
+  }
+  
+  /* High pixel density screens (most modern mobiles) */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .language-ticker {
+      /* Ensure crisp rendering on high-DPI displays */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+  
+  /* Adjustments for iPhone SE and similar small screens */
+  @media (max-height: 667px) {
+    .logo-centered {
+      width: 240px;
+      margin: 20px auto 10px;
+    }
+    
+    .app-description {
+      margin-top: 15px;
+      font-size: 0.85rem;
+    }
+    
+    .x-social-link {
+      top: 11px; /* Position lower on small screens */
+      right: 6px; /* Position more to the right on small screens */
+    }
+    
+    .main-header.headline {
+      font-size: 2.2rem;
+      margin-top: 0.3em;
+      margin-bottom: 0.3em;
+    }
+    
+    .hero-subhead {
+      font-size: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    
+    .hero-cta {
+      margin-top: 1.5rem;
+      --padding-top: 0.8rem;
+      --padding-bottom: 0.8rem;
+      --padding-start: 1.8rem;
+      --padding-end: 1.8rem;
+    }
+    
+    .ticker-text {
+      font-size: 1rem;
+    }
+    
+    .ticker-flag {
+      height: 1.1rem;
+      width: 1.6rem;
+    }
+  }
 }

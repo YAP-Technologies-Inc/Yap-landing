@@ -34,3 +34,24 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* Fix for iOS Safari safe area insets - ensures elements don't get hidden behind browser UI */
+html {
+  /* Enable padding for safe areas */
+  padding: env(safe-area-inset-top, 0) env(safe-area-inset-right, 0) env(safe-area-inset-bottom, 0) env(safe-area-inset-left, 0);
+  /* For older iOS support */
+  padding: constant(safe-area-inset-top, 0) constant(safe-area-inset-right, 0) constant(safe-area-inset-bottom, 0) constant(safe-area-inset-left, 0);
+}
+
+/* Ensure fixed position elements respect the safe area insets */
+.fixed-bottom {
+  bottom: 0;
+  bottom: env(safe-area-inset-bottom, 0);
+  bottom: constant(safe-area-inset-bottom, 0);
+}
+
+/* Specific helper class for fixing mobile browser interface issues */
+.mobile-safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  padding-bottom: constant(safe-area-inset-bottom, 0);
+}
