@@ -222,11 +222,11 @@
 
 @media (min-width: 768px) {
   .main-header.headline { font-size: 3.5rem; }
-  .hero-overlay { padding: 2rem 1.5rem; }
-  .logo-centered { width: 350px; margin: 60px auto 30px; } /* Larger logo for desktop */
+  .hero-overlay { padding: 0rem 1.5rem; }
+  .logo-centered { width: 350px; margin: 40px auto 0px; } /* Larger logo for desktop */
   .hero-cta { font-size: 1.25rem; }
-  .hero-subhead { font-size: 1.5rem; margin-bottom: 2.5rem; }
-  .app-description { font-size: 1.2rem; margin-top: 50px; } /* Larger app description */
+  .hero-subhead { font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .app-description { font-size: 1.2rem; margin-top: 135px; } /* Larger app description */
   
   /* Desktop ticker adjustments */
   .ticker-text { font-size: 1.25rem; }

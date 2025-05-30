@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 export interface WaitlistEntry {
   name: string;
   email: string;
-  language_preferred: string;
+  language_to_learn: string;
   acceptTerms: boolean;
 }
 
