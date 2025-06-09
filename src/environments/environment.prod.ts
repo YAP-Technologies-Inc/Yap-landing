@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://goyap.ai',  // Updated to use the correct production domain instead of empty string
+  apiUrl: 'https://app.goyap.ai',  // Updated to use the correct production domain for EKS microservices
 };
