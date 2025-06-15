@@ -25,7 +25,7 @@ export class WaitlistService {
    * Submits a waitlist entry
    */
   submitWaitlistEntry(entry: WaitlistEntry): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/wallet`, entry).pipe(
+    return this.http.post(`${this.apiUrl}/api/waitlist/simple`, entry).pipe(
       catchError(error => {
         console.error('Error submitting waitlist entry:', error);
         throw error;

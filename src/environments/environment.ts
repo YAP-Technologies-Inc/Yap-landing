@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://yap.local',  // Default to local development server
+  apiUrl: 'http://localhost:3001',  // Point to mock server for testing
 };
 
 /*

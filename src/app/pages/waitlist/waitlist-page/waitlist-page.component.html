@@ -1,21 +1,118 @@
 <ion-content class="yap-blue-bg">
-  <div class="mx-auto flex min-h-screen max-w-2xl flex-col items-center justify-center px-4 py-16">
-    <!-- Centered Form Section -->
-    <div class="w-full">
-      <a routerLink="/" class="mb-8 inline-flex items-center gap-2 text-sm text-white opacity-80">
+  <div class="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-4 py-16">
+    
+    <!-- Back Button -->
+    <div class="w-full max-w-2xl mb-8">
+      <a routerLink="/" class="inline-flex items-center gap-2 text-sm text-white opacity-80 hover:opacity-100 transition-opacity" 
+         *ngIf="!selectedFlow" (click)="resetFlow()">
         <ion-icon name="arrow-back-outline"></ion-icon> Back to home
       </a>
+      <button class="inline-flex items-center gap-2 text-sm text-white opacity-80 hover:opacity-100 transition-opacity cursor-pointer" 
+              *ngIf="selectedFlow" (click)="resetFlow()">
+        <ion-icon name="arrow-back-outline"></ion-icon> Back to options
+      </button>
+    </div>
 
-      <h1 class="mb-6 text-4xl font-bold text-white md:text-5xl">Join the waitlist</h1>
-      <p class="mb-8 text-xl text-white opacity-80">
-        Be the first to access YAP and get exclusive early-bird benefits.
-      </p>
+    <!-- Flow Selection Screen -->
+    <div *ngIf="!selectedFlow" class="w-full max-w-6xl">
+      <div class="text-center mb-12">
+        <h1 class="mb-6 text-4xl font-bold text-white md:text-5xl">Join the YAP Waitlist</h1>
+        <p class="text-xl text-white opacity-80">
+          Choose your preferred way to join our exclusive early access program
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        
+        <!-- Simple Waitlist Option -->
+        <div class="group cursor-pointer" (click)="selectSimpleFlow()">
+          <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-white border-opacity-20 
+                      hover:bg-opacity-20 hover:border-opacity-40 transition-all duration-300 transform hover:scale-105">
+            <div class="text-center">
+              <div class="w-16 h-16 mx-auto mb-6 bg-blue-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                <ion-icon name="mail-outline" class="text-3xl text-blue-300"></ion-icon>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-4">Simple Waitlist</h3>
+              <p class="text-white opacity-80 mb-6 leading-relaxed">
+                Join our waitlist with just your basic information. Get notified when YAP launches.
+              </p>
+              <ul class="text-left text-white opacity-70 text-sm space-y-2 mb-6">
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  Early access notification
+                </li>
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  Launch updates
+                </li>
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  Quick & simple signup
+                </li>
+              </ul>
+              <div class="inline-flex items-center text-blue-300 font-medium group-hover:text-blue-200 transition-colors">
+                Get started <ion-icon name="arrow-forward-outline" class="ml-2"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wallet Creation Option -->
+        <div class="group cursor-pointer" (click)="selectWalletFlow()">
+          <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 border border-yellow-400 border-opacity-30 
+                      hover:bg-opacity-20 hover:border-opacity-50 transition-all duration-300 transform hover:scale-105">
+            <div class="text-center">
+              <div class="w-16 h-16 mx-auto mb-6 bg-yellow-500 bg-opacity-20 rounded-full flex items-center justify-center">
+                <ion-icon name="wallet-outline" class="text-3xl text-yellow-300"></ion-icon>
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-4">Waitlist + YAP Wallet</h3>
+              <p class="text-white opacity-80 mb-6 leading-relaxed">
+                Join the waitlist AND get your secure YAP wallet immediately with recovery phrase.
+              </p>
+              <ul class="text-left text-white opacity-70 text-sm space-y-2 mb-6">
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  Instant wallet creation
+                </li>
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  SEI & Ethereum support
+                </li>
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  Secure recovery phrase
+                </li>
+                <li class="flex items-center gap-2">
+                  <ion-icon name="checkmark-circle-outline" class="text-green-400"></ion-icon>
+                  Priority early access
+                </li>
+              </ul>
+              <div class="inline-flex items-center text-yellow-300 font-medium group-hover:text-yellow-200 transition-colors">
+                Create wallet <ion-icon name="arrow-forward-outline" class="ml-2"></ion-icon>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simple Waitlist Flow -->
+    <div *ngIf="selectedFlow === 'simple'" class="w-full max-w-2xl animate-fade-in">
+      <div class="text-center mb-8">
+        <h1 class="mb-4 text-4xl font-bold text-white md:text-5xl">Simple Waitlist</h1>
+        <p class="text-xl text-white opacity-80">
+          Join our waitlist and be notified when YAP launches
+        </p>
+      </div>
 
       <!-- Success Message -->
-      <div *ngIf="success" class="mb-8 rounded-lg bg-white bg-opacity-10 p-4 text-white border border-green-400 border-opacity-50">
-        <div class="flex items-center">
-          <ion-icon name="checkmark-circle" class="mr-2 h-6 w-6 text-green-400"></ion-icon>
-          <p>Thank you! You've been added to our waitlist. We'll be in touch soon.</p>
+      <div *ngIf="success" class="mb-8 rounded-lg bg-white bg-opacity-10 p-6 text-white border border-green-400 border-opacity-50">
+        <div class="flex items-center justify-center">
+          <ion-icon name="checkmark-circle" class="mr-3 h-8 w-8 text-green-400"></ion-icon>
+          <div>
+            <h3 class="font-semibold text-lg">Welcome to the waitlist!</h3>
+            <p class="opacity-80">Thank you for joining. We'll notify you as soon as YAP is available.</p>
+          </div>
         </div>
       </div>
       
@@ -27,44 +124,44 @@
         </div>
       </div>
 
-      <!-- Waitlist Form -->
-      <form [formGroup]="waitlistForm" (ngSubmit)="onSubmit()" *ngIf="!success">
+      <!-- Simple Waitlist Form -->
+      <form [formGroup]="waitlistForm" (ngSubmit)="onSubmitSimple()" *ngIf="!success">
         <div class="mb-4">
-          <label for="name" class="mb-1 block text-sm text-white opacity-80">Name</label>
+          <label for="simple-name" class="mb-1 block text-sm text-white opacity-80">Name</label>
           <input
-            id="name"
+            id="simple-name"
             type="text"
             formControlName="name"
-            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            [ngClass]="{ 'ring-2 ring-red-500': submitted && f['name'].errors }"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && simpleForm['name'].errors }"
           />
-          <div *ngIf="submitted && f['name'].errors" class="mt-1 text-sm text-red-300">
+          <div *ngIf="submitted && simpleForm['name'].errors" class="mt-1 text-sm text-red-300">
             Name is required
           </div>
         </div>
 
         <div class="mb-4">
-          <label for="email" class="mb-1 block text-sm text-white opacity-80">Email Address</label>
+          <label for="simple-email" class="mb-1 block text-sm text-white opacity-80">Email Address</label>
           <input
-            id="email"
+            id="simple-email"
             type="email"
             formControlName="email"
-            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            [ngClass]="{ 'ring-2 ring-red-500': submitted && f['email'].errors }"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && simpleForm['email'].errors }"
           />
-          <div *ngIf="submitted && f['email'].errors" class="mt-1 text-sm text-red-300">
-            <span *ngIf="f['email'].errors['required']">Email is required</span>
-            <span *ngIf="f['email'].errors['email']">Please enter a valid email</span>
+          <div *ngIf="submitted && simpleForm['email'].errors" class="mt-1 text-sm text-red-300">
+            <span *ngIf="simpleForm['email'].errors['required']">Email is required</span>
+            <span *ngIf="simpleForm['email'].errors['email']">Please enter a valid email</span>
           </div>
         </div>
 
         <div class="mb-6">
-          <label for="language" class="mb-1 block text-sm text-white opacity-80">Primary Language Interest</label>
+          <label for="simple-language" class="mb-1 block text-sm text-white opacity-80">Primary Language to Learn</label>
           <select
-            id="language"
+            id="simple-language"
             formControlName="language"
-            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
-            [ngClass]="{ 'ring-2 ring-red-500': submitted && f['language'].errors }"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && simpleForm['language'].errors }"
           >
             <option value="" disabled selected>Select a language</option>
             <option value="english">English</option>
@@ -74,7 +171,7 @@
             <option value="japanese">Japanese</option>
             <option value="other">Other</option>
           </select>
-          <div *ngIf="submitted && f['language'].errors" class="mt-1 text-sm text-red-300">
+          <div *ngIf="submitted && simpleForm['language'].errors" class="mt-1 text-sm text-red-300">
             Please select a language
           </div>
         </div>
@@ -82,17 +179,17 @@
         <div class="mb-6">
           <div class="flex items-center">
             <input
-              id="acceptTerms"
+              id="simple-terms"
               type="checkbox"
               formControlName="acceptTerms"
-              class="h-4 w-4 rounded border-white border-opacity-50 bg-white bg-opacity-10 text-yellow-400 focus:ring-2 focus:ring-yellow-400"
-              [ngClass]="{ 'ring-2 ring-red-500': submitted && f['acceptTerms'].errors }"
+              class="h-4 w-4 rounded border-white border-opacity-50 bg-white bg-opacity-10 text-blue-400 focus:ring-2 focus:ring-blue-400"
+              [ngClass]="{ 'ring-2 ring-red-500': submitted && simpleForm['acceptTerms'].errors }"
             />
-            <label for="acceptTerms" class="ml-2 text-sm text-white opacity-80">
+            <label for="simple-terms" class="ml-2 text-sm text-white opacity-80">
               I agree to receive communication about YAP
             </label>
           </div>
-          <div *ngIf="submitted && f['acceptTerms'].errors" class="mt-1 text-sm text-red-300">
+          <div *ngIf="submitted && simpleForm['acceptTerms'].errors" class="mt-1 text-sm text-red-300">
             You must agree to the terms
           </div>
         </div>
@@ -105,9 +202,278 @@
           [disabled]="isSubmitting"
         >
           <ion-spinner *ngIf="isSubmitting" name="dots" class="mr-2"></ion-spinner>
-          {{ isSubmitting ? 'SUBMITTING...' : 'CREATE YOUR ACCOUNT' }}
+          {{ isSubmitting ? 'JOINING WAITLIST...' : 'JOIN WAITLIST' }}
         </ion-button>
       </form>
     </div>
+
+    <!-- Wallet Creation Flow -->
+    <div *ngIf="selectedFlow === 'wallet'" class="w-full max-w-2xl animate-fade-in">
+      <div class="text-center mb-8">
+        <h1 class="mb-4 text-4xl font-bold text-white md:text-5xl">Waitlist + YAP Wallet</h1>
+        <p class="text-xl text-white opacity-80">
+          Join the waitlist and receive your secure YAP wallet immediately
+        </p>
+      </div>
+
+      <!-- Wallet Creation Success -->
+      <div *ngIf="success && walletCreated" class="mb-8">
+        <div class="rounded-lg bg-white bg-opacity-10 p-6 text-white border border-green-400 border-opacity-50 mb-6">
+          <div class="flex items-center justify-center mb-4">
+            <ion-icon name="checkmark-circle" class="mr-3 h-8 w-8 text-green-400"></ion-icon>
+            <div>
+              <h3 class="font-semibold text-lg">Wallet Created Successfully!</h3>
+              <p class="opacity-80">You've been added to the waitlist and your YAP wallet is ready.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wallet Information Display -->
+        <div class="space-y-6">
+          <!-- Wallet Addresses -->
+          <div class="bg-white bg-opacity-5 rounded-lg p-4 border border-white border-opacity-20">
+            <h4 class="text-lg font-semibold text-white mb-4">Your Wallet Addresses</h4>
+            
+            <div class="space-y-3">
+              <div>
+                <label class="block text-sm text-white opacity-70 mb-1">SEI Address</label>
+                <div class="flex items-center gap-2">
+                  <input 
+                    type="text" 
+                    [value]="walletInfo?.seiAddress" 
+                    readonly 
+                    class="flex-1 bg-white bg-opacity-10 text-white px-3 py-2 rounded text-sm font-mono"
+                  >
+                  <button 
+                    type="button" 
+                    (click)="copyAddress(walletInfo?.seiAddress || '')"
+                    class="p-2 bg-blue-500 bg-opacity-20 hover:bg-opacity-30 rounded transition-colors"
+                  >
+                    <ion-icon name="copy-outline" class="text-blue-300"></ion-icon>
+                  </button>
+                </div>
+              </div>
+              
+              <div>
+                <label class="block text-sm text-white opacity-70 mb-1">Ethereum Address</label>
+                <div class="flex items-center gap-2">
+                  <input 
+                    type="text" 
+                    [value]="walletInfo?.ethAddress" 
+                    readonly 
+                    class="flex-1 bg-white bg-opacity-10 text-white px-3 py-2 rounded text-sm font-mono"
+                  >
+                  <button 
+                    type="button" 
+                    (click)="copyAddress(walletInfo?.ethAddress || '')"
+                    class="p-2 bg-blue-500 bg-opacity-20 hover:bg-opacity-30 rounded transition-colors"
+                  >
+                    <ion-icon name="copy-outline" class="text-blue-300"></ion-icon>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recovery Phrase Section -->
+          <div class="bg-gradient-to-r from-yellow-500 to-orange-500 bg-opacity-20 rounded-lg p-6 border border-yellow-400 border-opacity-30">
+            <div class="flex items-center mb-4">
+              <ion-icon name="shield-checkmark" class="text-yellow-300 text-2xl mr-3"></ion-icon>
+              <h4 class="text-lg font-semibold text-white">Recovery Phrase</h4>
+            </div>
+            
+            <div class="bg-red-500 bg-opacity-20 border border-red-400 border-opacity-50 rounded-lg p-4 mb-4">
+              <div class="flex items-start">
+                <ion-icon name="warning" class="text-red-400 text-xl mr-3 mt-0.5 flex-shrink-0"></ion-icon>
+                <div>
+                  <p class="text-white font-semibold mb-2">⚠️ CRITICAL: Write down your recovery phrase!</p>
+                  <ul class="text-sm text-white opacity-90 space-y-1">
+                    <li>• This is the ONLY way to recover your wallet</li>
+                    <li>• Store it in a safe, offline location</li>
+                    <li>• Never share it with anyone</li>
+                    <li>• YAP cannot recover lost phrases</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <button 
+                type="button"
+                (click)="toggleRecoveryPhrase()"
+                class="w-full bg-yellow-500 bg-opacity-20 hover:bg-opacity-30 border border-yellow-400 border-opacity-50 
+                       text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center gap-2"
+              >
+                <ion-icon [name]="showRecoveryPhrase ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
+                {{ showRecoveryPhrase ? 'Hide Recovery Phrase' : 'Show Recovery Phrase' }}
+              </button>
+            </div>
+
+            <div *ngIf="showRecoveryPhrase" class="space-y-4">
+              <div class="bg-black bg-opacity-30 rounded-lg p-4 border border-white border-opacity-20">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm text-white opacity-70">Your 12-word recovery phrase:</span>
+                  <button 
+                    type="button" 
+                    (click)="copyRecoveryPhrase()"
+                    class="text-xs bg-blue-500 bg-opacity-20 hover:bg-opacity-30 text-blue-300 px-2 py-1 rounded transition-colors"
+                  >
+                    Copy
+                  </button>
+                </div>
+                <p class="text-white font-mono text-sm bg-white bg-opacity-10 p-3 rounded border select-all">
+                  {{ walletInfo?.mnemonic }}
+                </p>
+              </div>
+
+              <div class="flex items-center" *ngIf="!recoveryPhraseConfirmed">
+                <input 
+                  type="checkbox" 
+                  id="phrase-confirmation"
+                  (change)="confirmRecoveryPhrase()"
+                  class="h-4 w-4 rounded border-white border-opacity-50 bg-white bg-opacity-10 text-yellow-400 focus:ring-2 focus:ring-yellow-400"
+                />
+                <label for="phrase-confirmation" class="ml-2 text-sm text-white">
+                  I have written down my recovery phrase and understand it's my responsibility to keep it safe
+                </label>
+              </div>
+
+              <div *ngIf="recoveryPhraseConfirmed" class="flex items-center text-green-400">
+                <ion-icon name="checkmark-circle" class="mr-2"></ion-icon>
+                <span class="text-sm">Recovery phrase confirmed - your wallet is secure!</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="mb-8 rounded-lg bg-white bg-opacity-10 p-4 text-white border border-red-400 border-opacity-50">
+        <div class="flex items-center">
+          <ion-icon name="alert-circle" class="mr-2 h-6 w-6 text-red-400"></ion-icon>
+          <p>{{ errorMessage }}</p>
+        </div>
+      </div>
+
+      <!-- Wallet Creation Form -->
+      <form [formGroup]="walletForm" (ngSubmit)="onSubmitWallet()" *ngIf="!success">
+        <div class="mb-4">
+          <label for="wallet-name" class="mb-1 block text-sm text-white opacity-80">Name</label>
+          <input
+            id="wallet-name"
+            type="text"
+            formControlName="name"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && walletFormControls['name'].errors }"
+          />
+          <div *ngIf="submitted && walletFormControls['name'].errors" class="mt-1 text-sm text-red-300">
+            Name is required
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="wallet-email" class="mb-1 block text-sm text-white opacity-80">Email Address</label>
+          <input
+            id="wallet-email"
+            type="email"
+            formControlName="email"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && walletFormControls['email'].errors }"
+          />
+          <div *ngIf="submitted && walletFormControls['email'].errors" class="mt-1 text-sm text-red-300">
+            <span *ngIf="walletFormControls['email'].errors['required']">Email is required</span>
+            <span *ngIf="walletFormControls['email'].errors['email']">Please enter a valid email</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="wallet-username" class="mb-1 block text-sm text-white opacity-80">Username</label>
+          <input
+            id="wallet-username"
+            type="text"
+            formControlName="username"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && walletFormControls['username'].errors }"
+          />
+          <div *ngIf="submitted && walletFormControls['username'].errors" class="mt-1 text-sm text-red-300">
+            <span *ngIf="walletFormControls['username'].errors['required']">Username is required</span>
+            <span *ngIf="walletFormControls['username'].errors['minlength']">Username must be at least 3 characters</span>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="wallet-passphrase" class="mb-1 block text-sm text-white opacity-80">Secure Passphrase</label>
+          <input
+            id="wallet-passphrase"
+            type="password"
+            formControlName="passphrase"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && walletFormControls['passphrase'].errors }"
+          />
+          <div *ngIf="submitted && walletFormControls['passphrase'].errors" class="mt-1 text-sm text-red-300">
+            <span *ngIf="walletFormControls['passphrase'].errors['required']">Passphrase is required</span>
+            <span *ngIf="walletFormControls['passphrase'].errors['minlength']">Passphrase must be at least 8 characters</span>
+          </div>
+          <p class="mt-1 text-xs text-white opacity-60">
+            Choose a strong passphrase to secure your wallet
+          </p>
+        </div>
+
+        <div class="mb-6">
+          <label for="wallet-language" class="mb-1 block text-sm text-white opacity-80">Primary Language to Learn</label>
+          <select
+            id="wallet-language"
+            formControlName="language"
+            class="w-full rounded-md border-0 bg-white bg-opacity-10 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            [ngClass]="{ 'ring-2 ring-red-500': submitted && walletFormControls['language'].errors }"
+          >
+            <option value="" disabled selected>Select a language</option>
+            <option value="english">English</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="mandarin">Mandarin Chinese</option>
+            <option value="japanese">Japanese</option>
+            <option value="other">Other</option>
+          </select>
+          <div *ngIf="submitted && walletFormControls['language'].errors" class="mt-1 text-sm text-red-300">
+            Please select a language
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex items-center">
+            <input
+              id="wallet-terms"
+              type="checkbox"
+              formControlName="acceptTerms"
+              class="h-4 w-4 rounded border-white border-opacity-50 bg-white bg-opacity-10 text-yellow-400 focus:ring-2 focus:ring-yellow-400"
+              [ngClass]="{ 'ring-2 ring-red-500': submitted && walletFormControls['acceptTerms'].errors }"
+            />
+            <label for="wallet-terms" class="ml-2 text-sm text-white opacity-80">
+              I agree to receive communication about YAP and understand the wallet security responsibilities
+            </label>
+          </div>
+          <div *ngIf="submitted && walletFormControls['acceptTerms'].errors" class="mt-1 text-sm text-red-300">
+            You must agree to the terms
+          </div>
+        </div>
+
+        <ion-button
+          type="submit"
+          expand="block"
+          size="large"
+          class="yap-cta"
+          [disabled]="isSubmitting || isCreatingWallet"
+        >
+          <ion-spinner *ngIf="isSubmitting || isCreatingWallet" name="dots" class="mr-2"></ion-spinner>
+          {{ isCreatingWallet ? 'CREATING WALLET...' : isSubmitting ? 'SUBMITTING...' : 'JOIN WAITLIST & CREATE WALLET' }}
+        </ion-button>
+        
+        <p class="mt-4 text-xs text-center text-white opacity-60">
+          This will create your secure YAP wallet with recovery phrase
+        </p>
+      </form>
+    </div>
+
   </div>
 </ion-content>

@@ -99,3 +99,59 @@ declare module '@types/node/stream/web' {
     value: T | undefined;
   }
 }
+
+// Crypto module declarations for YAP Landing
+declare module 'bip39' {
+  export function generateMnemonic(strength?: number): string;
+  export function validateMnemonic(mnemonic: string): boolean;
+  export function mnemonicToSeedSync(mnemonic: string, password?: string): Buffer;
+  export function mnemonicToSeed(mnemonic: string, password?: string): Promise<Buffer>;
+}
+
+declare module 'crypto-js' {
+  export namespace lib {
+    export class WordArray {
+      static random(bytes: number): WordArray;
+      toString(encoder?: any): string;
+    }
+  }
+  export namespace enc {
+    export const Base64: any;
+    export const Utf8: any;
+  }
+  export namespace mode {
+    export const CTR: any;
+  }
+  export namespace pad {
+    export const NoPadding: any;
+  }
+  export function PBKDF2(passphrase: string, salt: any, options: any): any;
+  export namespace AES {
+    export function encrypt(message: string, key: any, options: any): any;
+    export function decrypt(ciphertext: string, key: any, options: any): any;
+  }
+}
+
+declare module '@cosmjs/proto-signing' {
+  export class DirectSecp256k1HdWallet {
+    static fromMnemonic(mnemonic: string, options?: any): Promise<DirectSecp256k1HdWallet>;
+    getAccounts(): Promise<any[]>;
+    privkey: Uint8Array;
+    pubkey: Uint8Array;
+  }
+}
+
+declare module '@cosmjs/encoding' {
+  export function toBech32(prefix: string, data: Uint8Array): string;
+  export function fromBech32(address: string): { prefix: string; data: Uint8Array };
+}
+
+declare module 'ethers' {
+  export class Wallet {
+    static fromMnemonic(mnemonic: string, path?: string): Wallet;
+    static fromPhrase(mnemonic: string, path?: string): Wallet;
+    readonly address: string;
+    readonly publicKey: string;
+  }
+  export function isAddress(address: string): boolean;
+}
