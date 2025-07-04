@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { SecurePassphraseService, EncryptedStretchedKey, SecureWalletData } from './secure-passphrase.service';
 import { WalletCryptoService, WalletData, EncryptedMnemonic } from './wallet-crypto.service';
+import { environment } from '../../environments/environment';
 
 export interface SecureRegistrationResult {
   success: boolean;
@@ -294,6 +295,8 @@ export class SecureWalletRegistrationService {
 
   /**
    * Store wallet data locally using IndexedDB
+   * Raw mnemonic is stored locally (client-side secure)
+   * Encrypted mnemonic is sent to backend for MongoDB storage
    */
   private async storeWalletLocally(
     email: string,
@@ -317,15 +320,10 @@ export class SecureWalletRegistrationService {
         request.onsuccess = async () => {
           const db = request.result;
           
-          // Encrypt mnemonic for local storage
-          const encryptedMnemonic = await this.walletCrypto.encryptMnemonic(
-            walletData.mnemonic,
-            stretchedKey
-          );
-          
+          // Store raw mnemonic locally (no encryption needed for IndexedDB)
           const walletRecord = {
             email,
-            encryptedMnemonic,
+            rawMnemonic: walletData.mnemonic, // Store raw mnemonic in IndexedDB
             seiAddress: walletData.seiWallet.address,
             evmAddress: walletData.evmWallet.address,
             storedAt: new Date().toISOString()

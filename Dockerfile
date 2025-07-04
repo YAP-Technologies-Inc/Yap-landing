@@ -9,6 +9,7 @@ RUN npm install && npm install -g @angular/cli@14.2.12
 # Copy only what's needed for the build
 COPY src/ ./src/
 COPY angular.json ./
+COPY webpack.config.js ./
 COPY tsconfig.app.json ./
 COPY tsconfig.json ./
 COPY tailwind.config.js ./

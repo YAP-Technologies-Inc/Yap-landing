@@ -24,30 +24,63 @@ export class SecurePassphraseService {
    * Server never sees raw passphrases
    */
   async stretchPassphrase(passphrase: string, userSalt: string): Promise<Uint8Array> {
-    const encoder = new TextEncoder();
-    const passphraseBytes = encoder.encode(passphrase);
-    const saltBytes = encoder.encode(`yap-secure-${userSalt}-${Date.now()}`);
-    
-    const keyMaterial = await crypto.subtle.importKey(
-      'raw', 
-      passphraseBytes, 
-      'PBKDF2', 
-      false, 
-      ['deriveBits']
-    );
-    
-    const stretchedKeyBuffer = await crypto.subtle.deriveBits(
-      {
-        name: 'PBKDF2',
-        salt: saltBytes,
-        iterations: 600_000, // High iteration count for security
-        hash: 'SHA-256'
-      },
-      keyMaterial,
-      256 // 32 bytes
-    );
-    
-    return new Uint8Array(stretchedKeyBuffer);
+    try {
+      console.log('🔑 Starting stretchPassphrase...');
+      
+      // Validate inputs
+      if (!passphrase || passphrase.length === 0) {
+        throw new Error('Invalid passphrase provided');
+      }
+      if (!userSalt || userSalt.length === 0) {
+        throw new Error('Invalid user salt provided');
+      }
+      
+      console.log('📊 Input validation passed:', {
+        passphraseLength: passphrase.length,
+        userSalt: userSalt.substring(0, 3) + '***'
+      });
+
+      const encoder = new TextEncoder();
+      const passphraseBytes = encoder.encode(passphrase);
+      const saltBytes = encoder.encode(`yap-secure-${userSalt}-${Date.now()}`);
+      
+      console.log('🧂 Generated salt bytes:', saltBytes.length);
+      
+      const keyMaterial = await crypto.subtle.importKey(
+        'raw', 
+        passphraseBytes, 
+        'PBKDF2', 
+        false, 
+        ['deriveBits']
+      );
+      console.log('🔑 Key material imported');
+      
+      const stretchedKeyBuffer = await crypto.subtle.deriveBits(
+        {
+          name: 'PBKDF2',
+          salt: saltBytes,
+          iterations: 600_000, // High iteration count for security
+          hash: 'SHA-256'
+        },
+        keyMaterial,
+        256 // 32 bytes
+      );
+      console.log('🔐 Key derivation completed');
+      
+      const result = new Uint8Array(stretchedKeyBuffer);
+      
+      // Validate result
+      if (result.length === 0) {
+        throw new Error('Key derivation produced empty result');
+      }
+      
+      console.log('✅ Stretched key generated successfully:', result.length, 'bytes');
+      return result;
+      
+    } catch (error) {
+      console.error('❌ Error in stretchPassphrase:', error);
+      throw new Error(`Failed to stretch passphrase: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   }
 
   /**
@@ -58,47 +91,89 @@ export class SecurePassphraseService {
     stretchedKey: Uint8Array, 
     userEmail: string
   ): Promise<EncryptedStretchedKey> {
-    // Generate unique salt for this encryption
-    const encryptionSalt = crypto.getRandomValues(new Uint8Array(16));
-    
-    // Derive encryption key from user email + random salt
-    const emailBytes = new TextEncoder().encode(userEmail);
-    const derivationInput = new Uint8Array([...emailBytes, ...encryptionSalt]);
-    
-    const keyMaterial = await crypto.subtle.importKey(
-      'raw',
-      derivationInput,
-      'PBKDF2',
-      false,
-      ['deriveKey']
-    );
-    
-    const encryptionKey = await crypto.subtle.deriveKey(
-      {
-        name: 'PBKDF2',
-        salt: encryptionSalt,
-        iterations: 100_000,
-        hash: 'SHA-256'
-      },
-      keyMaterial,
-      { name: 'AES-GCM', length: 256 },
-      false,
-      ['encrypt']
-    );
-    
-    // Encrypt the stretched passphrase
-    const nonce = crypto.getRandomValues(new Uint8Array(12));
-    const encryptedData = await crypto.subtle.encrypt(
-      { name: 'AES-GCM', iv: nonce },
-      encryptionKey,
-      stretchedKey
-    );
-    
-    return {
-      encryptedStretchedKey: Array.from(new Uint8Array(encryptedData)),
-      encryptionSalt: Array.from(encryptionSalt),
-      nonce: Array.from(nonce)
-    };
+    try {
+      console.log('🔒 Starting encryptStretchedPassphrase...');
+      
+      // Validate inputs
+      if (!stretchedKey || stretchedKey.length === 0) {
+        throw new Error('Invalid stretched key provided');
+      }
+      if (!userEmail || userEmail.length === 0) {
+        throw new Error('Invalid user email provided');
+      }
+      
+      console.log('📊 Input validation passed:', {
+        stretchedKeyLength: stretchedKey.length,
+        userEmail: userEmail.substring(0, 3) + '***'
+      });
+
+      // Generate unique salt for this encryption
+      const encryptionSalt = crypto.getRandomValues(new Uint8Array(16));
+      console.log('🧂 Generated encryption salt:', encryptionSalt.length, 'bytes');
+      
+      // Derive encryption key from user email + random salt
+      const emailBytes = new TextEncoder().encode(userEmail);
+      const derivationInput = new Uint8Array([...emailBytes, ...encryptionSalt]);
+      
+      const keyMaterial = await crypto.subtle.importKey(
+        'raw',
+        derivationInput,
+        'PBKDF2',
+        false,
+        ['deriveKey']
+      );
+      console.log('🔑 Key material imported');
+      
+      const encryptionKey = await crypto.subtle.deriveKey(
+        {
+          name: 'PBKDF2',
+          salt: encryptionSalt,
+          iterations: 100_000,
+          hash: 'SHA-256'
+        },
+        keyMaterial,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt']
+      );
+      console.log('🔐 Encryption key derived');
+      
+      // Encrypt the stretched passphrase
+      const nonce = crypto.getRandomValues(new Uint8Array(12));
+      console.log('🎲 Generated nonce:', nonce.length, 'bytes');
+      
+      const encryptedData = await crypto.subtle.encrypt(
+        { name: 'AES-GCM', iv: nonce },
+        encryptionKey,
+        stretchedKey
+      );
+      console.log('✅ Encryption completed');
+      
+      const result = {
+        encryptedStretchedKey: Array.from(new Uint8Array(encryptedData)),
+        encryptionSalt: Array.from(encryptionSalt),
+        nonce: Array.from(nonce)
+      };
+      
+      // Validate result before returning
+      if (result.encryptedStretchedKey.length === 0 || 
+          result.encryptionSalt.length === 0 || 
+          result.nonce.length === 0) {
+        throw new Error('Encryption produced empty arrays');
+      }
+      
+      console.log('✅ Validation passed - returning encrypted data:', {
+        encryptedLength: result.encryptedStretchedKey.length,
+        saltLength: result.encryptionSalt.length,
+        nonceLength: result.nonce.length
+      });
+      
+      return result;
+      
+    } catch (error) {
+      console.error('❌ Error in encryptStretchedPassphrase:', error);
+      throw new Error(`Failed to encrypt stretched passphrase: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   }
 
   /**

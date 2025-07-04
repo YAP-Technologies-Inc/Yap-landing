@@ -228,26 +228,60 @@ export class SecureWalletRegistrationService {
       const walletData = await this.walletCryptoService.deriveWalletsFromMnemonic(mnemonic);
       
       // Generate stretched key and encryption materials
+      console.log('🔑 Generating stretched key for:', email);
       const stretchedKey = await this.securePassphraseService.stretchPassphrase(passphrase, email);
+      console.log('✅ Stretched key generated, length:', stretchedKey?.length || 'undefined');
+      
+      console.log('🔒 Encrypting stretched key...');
       const encryptedStretchedKeyData = await this.securePassphraseService.encryptStretchedPassphrase(stretchedKey, email);
+      console.log('✅ Encrypted stretched key data:', {
+        encryptedStretchedKey: encryptedStretchedKeyData?.encryptedStretchedKey?.length || 'undefined',
+        encryptionSalt: encryptedStretchedKeyData?.encryptionSalt?.length || 'undefined',
+        nonce: encryptedStretchedKeyData?.nonce?.length || 'undefined'
+      });
+
+      // Validate that we have non-empty stretched key data
+      if (!encryptedStretchedKeyData?.encryptedStretchedKey?.length || 
+          !encryptedStretchedKeyData?.encryptionSalt?.length || 
+          !encryptedStretchedKeyData?.nonce?.length) {
+        throw new Error('Failed to generate encrypted stretched key data - crypto operations may have failed');
+      }
 
       // Encrypt the mnemonic
+      console.log('🔐 Encrypting mnemonic with stretched key...');
       const encryptedMnemonic = await this.walletCryptoService.encryptMnemonic(mnemonic, stretchedKey);
+      console.log('✅ Mnemonic encrypted');
 
-      // Prepare registration data
+      // Prepare registration data with validation
+      const stretchedKeyString = encryptedStretchedKeyData.encryptedStretchedKey.join(',');
+      const encryptionSaltString = encryptedStretchedKeyData.encryptionSalt.join(',');
+      const stretchedKeyNonceString = encryptedStretchedKeyData.nonce.join(',');
+      
+      console.log('📊 Prepared data lengths:', {
+        stretchedKeyString: stretchedKeyString.length,
+        encryptionSaltString: encryptionSaltString.length,
+        stretchedKeyNonceString: stretchedKeyNonceString.length
+      });
+      
+      if (!stretchedKeyString || !encryptionSaltString || !stretchedKeyNonceString) {
+        throw new Error('Stretched key data serialization failed - empty strings detected');
+      }
+
       const registrationData = {
         email,
         username,
         name,
         language_to_learn: language,
-        encryptedStretchedKey: encryptedStretchedKeyData.encryptedStretchedKey.join(','),
-        encryptionSalt: encryptedStretchedKeyData.encryptionSalt.join(','),
-        stretchedKeyNonce: encryptedStretchedKeyData.nonce.join(','),
-        encryptedMnemonic: encryptedMnemonic.encryptedData,
-        mnemonicSalt: encryptedMnemonic.salt,
-        mnemonicNonce: encryptedMnemonic.nonce,
-        seiAddress: walletData.seiWallet.address,
-        ethAddress: walletData.evmWallet.address,
+        encryptedStretchedKey: stretchedKeyString,
+        encryptionSalt: encryptionSaltString,
+        stretchedKeyNonce: stretchedKeyNonceString,
+        encrypted_mnemonic: encryptedMnemonic.encryptedData,
+        mnemonic_salt: encryptedMnemonic.salt,
+        mnemonic_nonce: encryptedMnemonic.nonce,
+        sei_address: walletData.seiWallet.address,
+        sei_public_key: walletData.seiWallet.publicKey,
+        eth_address: walletData.evmWallet.address,
+        eth_public_key: walletData.evmWallet.publicKey,
         clientMetadata: {
           userAgent: navigator.userAgent,
           timestamp: new Date().toISOString(),
@@ -256,7 +290,7 @@ export class SecureWalletRegistrationService {
       };
 
       // Register with the backend (waitlist + wallet)
-      const response = await this.performSecureRegistration(registrationData).toPromise();
+      const response = await this.performSecureRegistration(registrationData as any).toPromise();
 
       // Store wallet data in IndexedDB for local access
       await this.storeWalletInIndexedDB(email, {
