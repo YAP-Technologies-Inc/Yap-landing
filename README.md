@@ -135,7 +135,7 @@ Update these files to adjust API endpoints or other environment-specific setting
 
 ## Contact
 
-Project Owner - [(https://twitter.com/your-twitter)](https://x.com/YAP2Learn)
+Project Owner - https://x.com/YAP2Learn
 
 Project Website: [https://goyap.ai](https://goyap.ai)
 
